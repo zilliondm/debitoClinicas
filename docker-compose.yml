@@ -1,0 +1,10 @@
+version: "3"
+services:
+  frontend:
+    image: debitoclinicas-fe
+    ports: 
+      - "28889:80"
+  backend:
+    image: debitoclinicas-be
+    ports: 
+      - "28888:80"

@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {}
+
+.example-sidenav {
+    padding: 20px;
+}
+
+.inboxTray {
+    max-width: unset;
+    max-height: unset;
+    margin-top: 8%;
+    width: 85%;
+    align-self: center;
+}
+
+::ng-deep.mat-form-field-underline {
+    background-color: white !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: white !important;
+}
+
+::ng-deep .mat-form-field-label {
+    color: white !important;
+}
+
+ ::ng-deep.mat-form-field-ripple {
+    background-color: white !important;
+}

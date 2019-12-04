@@ -30,7 +30,7 @@
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
-                                {{item}}
+                                {{item.nFactura}}
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <p>I'm visible because I am open</p>
@@ -61,7 +61,7 @@
 
 
                     <div style="float: right;">
-                        <button mat-raised-button (click)="drawer.toggle()"><mat-icon>add</mat-icon> AGREGAR FACTURA</button>
+                        <button mat-raised-button (click)="drawer.toggle()" (click)="hola()"><mat-icon>add</mat-icon> AGREGAR FACTURA</button>
                     </div>
 
                     <button class="mat-icon-button" style="float: right; color: white;">

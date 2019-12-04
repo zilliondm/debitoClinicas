@@ -80,6 +80,7 @@ const SURNAMES: string[] = [
 })
 export class InboxComponent implements OnInit {
     isShown: boolean = false;
+    items;
 
     toggleShow() {
         this.isShown = !this.isShown;
@@ -95,9 +96,36 @@ export class InboxComponent implements OnInit {
         "Estados"
     ];
 
-    items = ['012-346611-A', '012-346611-B', '012-346611-C', '012-757281-D','012-829123-E','012-972712-X','012-564565-L','012-231231-A']
+    
     trackByFn(index, item) {
         return item.id;
+      }
+
+      hola(){
+        //this.items = ['012-346611-A', '012-346611-B', '012-346611-C', '012-757281-D','012-829123-E','012-972712-X','012-564565-L','012-231231-A']
+
+        console.log(this.dataSource.data)
+         this.items = [];
+        this.dataSource.data.forEach(element => {
+          let elem = {
+            nFactura: element.NFactura,
+          };
+          this.items.push(elem);
+        });
+        console.log('resp',this.items)
+        return this.items;
+       
+      }
+
+      formatDataSource(data) {
+        let resp = [];
+        data.forEach(element => {
+          let elem = {
+            nFactura: element.NFactura,
+          };
+          resp.push(elem);
+        });
+        return resp;
       }
 
     dataSource: MatTableDataSource<UserData>;

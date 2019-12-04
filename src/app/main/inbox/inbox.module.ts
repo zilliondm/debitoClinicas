@@ -26,6 +26,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+import { DebitoClinicasService } from '../../service/debitoclinicas.service';
+
+
 const routes = [
     {
         path     : 'inbox',
@@ -71,7 +74,10 @@ const routes = [
     ],
     exports     : [
         InboxComponent
-    ]
+    ],
+    providers: [
+        DebitoClinicasService
+        ],
 })
 
 export class InboxModule

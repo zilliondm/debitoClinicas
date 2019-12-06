@@ -6,6 +6,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { QuickPanelComponent } from 'app/layout/components/quick-panel/quick-panel.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -15,6 +19,10 @@ import { QuickPanelComponent } from 'app/layout/components/quick-panel/quick-pan
         MatDividerModule,
         MatListModule,
         MatSlideToggleModule,
+        MatIconModule,
+        MatExpansionModule,
+        MatCheckboxModule,
+        RouterModule,
 
         FuseSharedModule,
     ],
@@ -24,4 +32,5 @@ import { QuickPanelComponent } from 'app/layout/components/quick-panel/quick-pan
 })
 export class QuickPanelModule
 {
+    
 }

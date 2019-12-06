@@ -9,9 +9,9 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class QuickPanelComponent
 {
     date: Date;
-    events: any[];
     notes: any[];
     settings: any;
+    items = ['012-346611-A', '012-346611-B', '012-346611-C', '012-757281-D','012-829123-E','012-972712-X','012-564565-L','012-231231-A']
 
     /**
      * Constructor

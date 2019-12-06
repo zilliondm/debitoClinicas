@@ -1,3 +1,142 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg primary"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header primary" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16">
+                    dashboard
+                </mat-icon>
+                <span class="logo-text h1">
+                    Bandeja de entrada
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-32 mx-md-0" style="color: white !important; width: 35%;">
+                <mat-form-field *ngIf="isShown">
+                    <mat-icon matPrefix>search</mat-icon>
+                    <input type="search" matInput placeholder="Buscar">
+                </mat-form-field>
+            </div>
+            <!-- / SEARCH -->
+
+            <div>
+                <button class="mat-icon-button whiteColor" (click)="toggleShow()">
+                    <mat-icon class="mat-icon material-icons" aria-hidden="false">search</mat-icon>
+                </button>
+                <button class="mat-icon-button whiteColor">
+                    <mat-icon class="mat-icon material-icons" aria-hidden="false" matTooltip="Filtrar" matTooltipPosition="above" aria-hidden="false">tune</mat-icon>
+                </button>
+                <!-- ADD BUTTON -->
+                <button mat-raised-button [routerLink]=" '/apps/e-commerce/products/new'" class="add-product-button fuse-white mt-24 mt-md-0" (click)="toggleSidebarOpen('quickPanel')">
+                <mat-icon>add</mat-icon><span>Agregar factura</span>
+            </button>
+                <!-- / ADD BUTTON -->
+            </div>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <mat-table class="products-table" #table [dataSource]="dataSource" matSort fusePerfectScrollbar>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="NFactura">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>N Factura/Comprobante</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <p class="text-truncate">{{row.NFactura}}</p>
+                    </mat-cell>
+                </ng-container>
+
+
+                <!-- Image Column -->
+                <ng-container matColumnDef="FecCreacion">
+                    <mat-header-cell *matHeaderCellDef>Fecha Creación</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        {{row.FecCreacion}}
+                    </mat-cell>
+                </ng-container>
+
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="FecVencimiento">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Vencimiento </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <p class="text-truncate">{{row.FecVencimiento}}</p>
+                    </mat-cell>
+                </ng-container>
+
+
+                <!-- Category Column -->
+                <ng-container matColumnDef="Clinica">
+                    <mat-header-cell *matHeaderCellDef fxHide mat-sort-header fxShow.gt-md>Clínica</mat-header-cell>
+                    <mat-cell *matCellDef="let row" fxHide fxShow.gt-md>
+                        <p class="category text-truncate">
+                            {{row.Clinica}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Quantity Column -->
+                <ng-container matColumnDef="ComFacturacion">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>ComFacturacion</mat-header-cell>
+                    <mat-cell *matCellDef="let row" fxHide fxShow.gt-sm>
+                        <span>
+                                {{row.ComFacturacion}}
+                            </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Price Column -->
+                <ng-container matColumnDef="Prestador">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Prestador</mat-header-cell>
+                    <mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                        <p class="price text-truncate">
+                            {{row.Prestador}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+
+
+                <!-- Active Column -->
+                <ng-container matColumnDef="Estados">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Estados</mat-header-cell>
+                    <mat-cell *matCellDef="let row" fxHide fxShow.gt-xs>
+                        <button mat-flat-button [style.background-color]="getColor(row.Estados)" style="color: white; border-radius: 30px; width: 100%;">{{row.Estados}}</button>
+                    </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let product; columns: displayedColumns;" class="product" matRipple [routerLink]=" '/apps/e-commerce/products/'+product.id+ '/'+product.handle">
+                </mat-row>
+
+            </mat-table>
+
+            <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+
+</div>
+
 <mat-drawer-container autosize style="width:100%; height: 100%;">
     <mat-drawer #drawer mode="side" position="end">
         <table class="simple clickable">
@@ -11,7 +150,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel (opened)="panelOpenState=true" (closed)="panelOpenState=false">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     Clínica
@@ -27,7 +166,7 @@
                     </td>
                 </tr>
                 <tr *ngFor=" let item of items; trackBy: trackByFn;">
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                    <mat-expansion-panel (opened)="panelOpenState=true" (closed)="panelOpenState=false">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 {{item}}
@@ -39,125 +178,3 @@
             </tbody>
         </table>
     </mat-drawer>
-    <div id="product" class="page-layout carded fullwidth inner-scroll">
-        <!-- TOP BACKGROUND -->
-        <div class="top-bg primary"></div>
-        <!-- / TOP BACKGROUND -->
-        <!-- CENTER -->
-        <div class="center">
-            <!-- HEADER -->
-            <div class="primary" fxLayout="row" fxLayoutAlign="space-between center" style="height: 10%">
-
-            </div>
-            <!-- / HEADER -->
-            <!--<mat-form-field>
-                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-            </mat-form-field>-->
-            <div class="inboxTray">
-                <div style="margin-bottom: 5%;">
-                    <div style="font-size: 30px; float: left; color: white">
-                        <mat-icon>dashboard</mat-icon> Bandeja de entrada
-                    </div>
-
-
-                    <div style="float: right;">
-                        <button mat-raised-button (click)="drawer.toggle()"><mat-icon>add</mat-icon> AGREGAR FACTURA</button>
-                    </div>
-
-                    <button class="mat-icon-button" style="float: right; color: white;">
-                                <mat-icon class="mat-icon material-icons" aria-hidden="false" matTooltip="Filtrar" matTooltipPosition="above" aria-hidden="false">tune</mat-icon>
-                    </button>
-
-                    <button class="mat-icon-button" style="float:right; color: white;" (click)="toggleShow()">
-                            <mat-icon class="mat-icon material-icons" aria-hidden="false">search</mat-icon>
-                    </button>
-
-                    <div style="width:35%; float: right; color: white !important">
-                        <mat-form-field *ngIf="isShown">
-                            <mat-icon matPrefix>search</mat-icon>
-                            <input type="search" matInput placeholder="Buscar">
-                        </mat-form-field>
-                    </div>
-
-                </div>
-
-                <div>
-                    <!--<div>
-                    <div class="h4" style="border-bottom: 1px solid; border-bottom-color: rgba(0, 0, 0, 0.12); padding: 10px">
-                        Bandeja de entrada
-                        <button class="mat-icon-button" style="float:right" (click)="drawer.toggle()">
-                            <mat-icon class="mat-icon material-icons" aria-hidden="false" style="color: #039BE5" matTooltip="Agregar factura" matTooltipPosition="after">add_circle</mat-icon>
-                        </button>
-                        <button class="mat-icon-button" style="float:right">
-                            <mat-icon class="mat-icon material-icons" aria-hidden="false">search</mat-icon>
-                        </button>
-                        <button class="mat-icon-button" style="float:right">
-                            <mat-icon class="mat-icon material-icons" aria-hidden="false">filter_list</mat-icon>
-                        </button>
-                        <button class="mat-icon-button" style="float: right">
-                            <mat-icon class="mat-icon material-icons" aria-hidden="false">get_app</mat-icon>
-                        </button>
-                    </div>
-
-                </div>-->
-                    <!-- TABLE -->
-                    <table mat-table [dataSource]="dataSource" matSort>
-                        <!-- ID Column -->
-                        <ng-container matColumnDef="NFactura">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> N Factura/Comprobante </th>
-                            <td mat-cell *matCellDef="let row"> {{row.NFactura}} </td>
-                        </ng-container>
-
-                        <!-- Progress Column -->
-                        <ng-container matColumnDef="FecCreacion">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Creación </th>
-                            <td mat-cell *matCellDef="let row"> {{row.FecCreacion}}</td>
-                        </ng-container>
-
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="FecVencimiento">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Vencimiento </th>
-                            <td mat-cell *matCellDef="let row"> {{row.FecVencimiento}} </td>
-                        </ng-container>
-
-                        <!-- Color Column -->
-                        <ng-container matColumnDef="Clinica">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Clínica </th>
-                            <td mat-cell *matCellDef="let row"> {{row.Clinica}} </td>
-                        </ng-container>
-
-                        <!-- Color Column -->
-                        <ng-container matColumnDef="Prestador">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Prestador </th>
-                            <td mat-cell *matCellDef="let row"> {{row.Prestador}} </td>
-                        </ng-container>
-
-                        <!-- Color Column -->
-                        <ng-container matColumnDef="ComFacturacion">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Compr. Facturación</th>
-                            <td mat-cell *matCellDef="let row"> {{row.ComFacturacion}} </td>
-                        </ng-container>
-
-                        <!-- Color Column -->
-                        <ng-container matColumnDef="Estados">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado</th>
-                            <td mat-cell *matCellDef="let row"><button mat-flat-button [style.background-color]="getColor(row.Estados)" style="color: white; border-radius: 30px; width: 100%;">{{row.Estados}}</button></td>
-                        </ng-container>
-
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-                        </tr>
-                    </table>
-                    <!-- /TABLE -->
-                    <div class="card-divider full-width"></div>
-                    <div class="full-width" style=" border-radius: 8px;">
-                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" style="height: 10%"></mat-paginator>
-                    </div>
-                    <br />
-                </div>
-            </div>
-        </div>
-        <!-- / CENTER -->
-    </div>
-
-</mat-drawer-container>

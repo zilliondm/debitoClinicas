@@ -154,6 +154,27 @@ export class AppComponent implements OnInit, OnDestroy
 
                 this.document.body.classList.add(this.fuseConfig.colorTheme);
             });
+
+            const customFunctionNavItem = {
+                id: 'custom-function',
+                title: 'Custom Function',
+                type: 'group',
+                icon: 'settings',
+                children: [
+                    {
+                        id: 'customize',
+                        title: 'David Delgado - DEBITO',
+                        type: 'item',
+                        icon: 'account_circle',
+                        classes: 'trowBottom',
+                        function: () => {
+                            this.toggleSidebarOpen('themeOptionsPanel');
+                        }
+                    }
+                ]
+            };
+    
+             this._fuseNavigationService.addNavigationItem(customFunctionNavItem, 'end');
     }
 
     /**

@@ -12,6 +12,7 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: 'dashboard',
                 url: '/inbox',
+              
             },
             {
                 id: 'Detail',

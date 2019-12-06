@@ -3,16 +3,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DebitoClinicasService } from '../../service/debitoclinicas.service';
+import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 export interface UserData {
-    //id: string;
-    //name: string;
-    //progress: string;
-    //color: string;
-
     NFactura: string;
     FecCreacion: string;
-    FecVencimiento: string;
     Clinica: string;
     Prestador: string;
     ComFacturacion: string;
@@ -23,8 +18,8 @@ export interface UserData {
 const ESTADOS: string[] = [
     "Nueva",
     "Cerrada",
-    "En tratamiento",
-    "En tratamientoy"
+    "Refacturar",
+    "Refacturary"
 ];
 const NAMES: string[] = [
     "Maia",
@@ -79,16 +74,15 @@ const SURNAMES: string[] = [
     templateUrl: "inbox.component.html"
 })
 export class InboxComponent implements OnInit {
+    
     isShown: boolean = false;
 
     toggleShow() {
         this.isShown = !this.isShown;
     }
-    //displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
     displayedColumns: string[] = [
         "NFactura",
         "FecCreacion",
-        "FecVencimiento",
         "Clinica",
         "Prestador",
         "ComFacturacion",
@@ -105,7 +99,7 @@ export class InboxComponent implements OnInit {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-    constructor(debitoClinicasService: DebitoClinicasService) {
+    constructor(debitoClinicasService: DebitoClinicasService, private _fuseSidebarService: FuseSidebarService,) {
         // Create 100 users
         const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
         //const users = debitoClinicasService.getFacturasEnc();
@@ -127,15 +121,22 @@ export class InboxComponent implements OnInit {
         }
     }
 
+ 
+   toggleSidebarOpen(key): void
+   {
+       this._fuseSidebarService.getSidebar(key).toggleOpen();
+   }
+
+
     getColor(Estados) {
         switch (Estados) {
             case "Cerrada":
                 return "#43A047";
             case "Nueva":
                 return "#0353E5";
-            case "En tratamiento":
+            case "Refacturar":
                 return "#F44336";
-            case "En tratamientoy":
+            case "Refacturary":
                 return "#FFC107";
         }
     }
@@ -156,19 +157,10 @@ function createNewUser(id: number): UserData {
         ".";
 
     const fecCreacion = "22/11/2019";
-    const fecVencimiento = "20/01/2020";
-
-    //return {
-    //    id: id.toString(),
-    //    name: name,
-    //    progress: Math.round(Math.random() * 100).toString(),
-    //    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-    //};
 
     return {
         NFactura: id.toString(),
         FecCreacion: fecCreacion,
-        FecVencimiento: fecVencimiento,
         Clinica: surnames,
         Prestador: name,
         ComFacturacion: Math.round(Math.random() * 100).toString(),

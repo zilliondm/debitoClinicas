@@ -1,12 +1,12 @@
 <div fxLayout="column" fxFlex fusePerfectScrollbar>
 
-    <mat-list class="date" cdkFocusRegionStart>
-
-        <h3 matSubheader cdkFocusInit>
-            <span>Today</span>
+    <mat-list cdkFocusRegionStart>
+        <h3 matSubheader cdkFocusInit style="background-color: white; color: black;">
+            <mat-icon>list_alt</mat-icon>
+            <span style="margin-left: 5px;"> Agregar Factura</span>
         </h3>
 
-        <div class="secondary-text mat-display-1 mb-0 p-16">
+        <!-- <div class="secondary-text mat-display-1 mb-0 p-16">
             <div class="mb-12">
                 {{date | date:'EEEE'}}
             </div>
@@ -15,13 +15,50 @@
                 <span class="mat-subheading-1">th</span>
                 <span> {{date | date:'MMMM'}}</span>
             </div>
-        </div>
+        </div> -->
     </mat-list>
+
 
     <mat-divider cdkFocusRegionEnd></mat-divider>
 
-    <mat-list>
-        <h3 matSubheader>
+    <mat-list style="padding: 10px">
+        <div style="border-radius: 8px;
+        border: 1px">
+
+            <mat-expansion-panel (opened)="panelOpenState=true" (closed)="panelOpenState=false" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Clínica
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-checkbox style="margin-right: 5px;">Bazterrica</mat-checkbox>
+                <mat-checkbox style="margin-right: 5px;">Del Sol</mat-checkbox>
+                <mat-checkbox style="margin-right: 5px;">Santa Isabel</mat-checkbox>
+            </mat-expansion-panel>
+            <div class="mat-expansion-panel mat-expansion-panel-header" style="height: 48px; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                <input type="text" id="searchClinicas" placeholder="Buscar por número de factura" aria-label="Number" matInput>
+            </div>
+
+        </div>
+        <!-- <div class="content-card">
+                <mat-expansion-panel (opened)="panelOpenState=true" (closed)="panelOpenState=false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Clínica
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-checkbox style="margin-right: 5px;">Bazterrica</mat-checkbox>
+                    <mat-checkbox style="margin-right: 5px;">Del Sol</mat-checkbox>
+                    <mat-checkbox style="margin-right: 5px;">Santa Isabel</mat-checkbox>
+                </mat-expansion-panel>
+                <div class="mat-expansion-panel mat-expansion-panel-header" style="height: 48px;">
+                    <input type="text" placeholder="Buscar por número de factura" aria-label="Number" matInput>
+                </div>
+            </div> -->
+    </mat-list>
+
+    <!-- <mat-list> -->
+    <!-- <h3 matSubheader>
             <span>Events</span>
         </h3>
 
@@ -29,10 +66,20 @@
             <h3 matLine>{{event.title}}</h3>
             <p matLine class="secondary-text">{{event.detail}}</p>
         </mat-list-item>
-    </mat-list>
+    </mat-list> -->
+    <div *ngFor=" let item of items;">
+        <mat-expansion-panel (opened)="panelOpenState=true" (closed)="panelOpenState=false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{item}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button routerLink="/app/main/sample">I'm visible because I am open</button>
+        </mat-expansion-panel>
+    </div>
 
     <mat-divider></mat-divider>
-
+    <!-- 
     <mat-list>
         <h3 matSubheader>
             <span>Notes</span>
@@ -44,33 +91,30 @@
         </mat-list-item>
     </mat-list>
 
-    <mat-divider></mat-divider>
+    <mat-divider></mat-divider> -->
 
-    <mat-list>
+    <!-- <mat-list>
         <h3 matSubheader>
             <span>Quick Settings</span>
         </h3>
 
         <mat-list-item>
-            <mat-slide-toggle fxFlex class="mat-primary" [(ngModel)]="settings.notify" aria-label="Notifications"
-                              labelPosition="before">
+            <mat-slide-toggle fxFlex class="mat-primary" [(ngModel)]="settings.notify" aria-label="Notifications" labelPosition="before">
                 <h3>Notifications</h3>
             </mat-slide-toggle>
         </mat-list-item>
 
         <mat-list-item>
-            <mat-slide-toggle fxFlex class="mat-accent" [(ngModel)]="settings.cloud" aria-label="Cloud"
-                              labelPosition="before">
+            <mat-slide-toggle fxFlex class="mat-accent" [(ngModel)]="settings.cloud" aria-label="Cloud" labelPosition="before">
                 <h3>Cloud Sync</h3>
             </mat-slide-toggle>
         </mat-list-item>
 
         <mat-list-item>
-            <mat-slide-toggle fxFlex class="mat-warn" [(ngModel)]="settings.retro" aria-label="Retro Thrusters"
-                              labelPosition="before">
+            <mat-slide-toggle fxFlex class="mat-warn" [(ngModel)]="settings.retro" aria-label="Retro Thrusters" labelPosition="before">
                 <h3>Retro Thrusters</h3>
             </mat-slide-toggle>
         </mat-list-item>
-    </mat-list>
+    </mat-list> -->
 
 </div>

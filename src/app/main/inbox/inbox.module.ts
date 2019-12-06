@@ -27,6 +27,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DebitoClinicasService } from 'app/service/debitoclinicas.service';
 
+import { DebitoClinicasService } from '../../service/debitoclinicas.service';
+
+
 const routes = [
     {
         path     : 'inbox',
